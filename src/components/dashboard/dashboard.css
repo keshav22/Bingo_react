@@ -1,0 +1,114 @@
+.dashboard{
+    text-align: center;
+    width: 100%;
+}
+
+.bingoCard{
+    width: 100%;
+}
+
+.header{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #003638;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.overlay-bingo-center{
+    
+}
+
+.winnerText{
+    font-size: 60px;
+    color: white;
+    text-shadow: 2px 2px 20px #000000;
+}
+
+.overlay-bingo{
+    padding-top: 30px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    position: fixed !important;
+    overflow-y: scroll;
+}
+
+.winner-text-cover{
+}
+
+.winLogo{
+    width: 370px;
+}
+
+.addIcon{
+    padding-top: 2px;
+    font-size: 24px !important;
+}
+
+.btn-bingo{
+    border: 0px !important;
+    background-image: linear-gradient(to bottom,transparent,transparent 0%) !important;
+    background-color: transparent !important;
+    border-top: 0px !important;
+    box-shadow: revert;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 19px;
+}
+
+.btn-draw{
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: -50px;
+    justify-content: space-between;
+}
+
+.btn-wdth-hgt{
+    width: 50px !important;
+    height: 50px !important;
+    background-color: rgb(233, 106, 2) !important;
+}
+
+.draw-text-inside{
+    padding-right: 3px;
+}
+
+.bingoLogo{
+    display: flex;
+    padding-left: 20px;
+}
+
+.btn-draw-bingo{
+    background-image: linear-gradient(to bottom,transparent,transparent 0%) !important;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 0px !important;
+    background-color: #ED9C00;
+    
+}
+
+.btn-draw-cover{
+    margin-right: 70px;
+    z-index: 100;
+}
+
+.draw-text{
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.headerLogo{
+    width: 170px;
+    height: 70px;
+}
