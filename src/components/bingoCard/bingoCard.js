@@ -4,8 +4,8 @@ import "./bingoCard.css";
 function BingoCard({ player, questionsDrawn }) {
   useEffect(() => {}, []);
 
-  const getBgColor = (question) => {
-    if (questionsDrawn.includes(question)) {
+  const getBgColor = (question, index) => {
+    if (index != 12 && questionsDrawn.includes(question)) {
       return "#f9ff00";
     }
     return "#fff";
@@ -30,11 +30,16 @@ function BingoCard({ player, questionsDrawn }) {
                     class="col"
                     style={{
                       backgroundColor: getBgColor(
-                        player.playerQuestions[row * 5 + column]
+                        player.playerQuestions[row * 5 + column],
+                        row * 5 + column
                       ),
                     }}
                   >
-                    <span>{player.playerQuestions[row * 5 + column]}</span>
+                    {row * 5 + column == 12 ? (
+                      <span>Proxy</span>
+                    ) : (
+                      <span>{player.playerQuestions[row * 5 + column]}</span>
+                    )}
                   </div>
                 );
               })}

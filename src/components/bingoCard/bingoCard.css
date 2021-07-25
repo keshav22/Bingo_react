@@ -2,10 +2,11 @@
   display: flex;
 }
 .col {
-  width: 20px;
-  border: 1px solid black;
-  text-align: center;
-  padding: 30px;
+    padding-top: 30px;
+    width: 60px;
+    border: 1px solid black;
+    text-align: center;
+    padding-bottom: 30px;
 }
 .Card {
   margin-top: 50px;
