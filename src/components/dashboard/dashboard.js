@@ -66,6 +66,7 @@ export default function Dashboard() {
     let player = {
       playerName: (players.length + 1).toString(),
       playerQuestions: chooseRandom(QUESTION_BANK, 25),
+      winnings: [],
     };
 
     QUESTION_BANK_SELECTED = QUESTION_BANK_SELECTED.concat(
@@ -75,12 +76,12 @@ export default function Dashboard() {
   };
 
   const chooseRandomeQuestion = () => {
-    if (winners.length > 0) {
-      setShowWinners(true);
-      return;
-    }
     if (players.length == 0) {
       openSnack("Please add some players!!!", "error");
+      return;
+    }
+    if (QUESTION_BANK_SELECTED && QUESTION_BANK_SELECTED.length == 0) {
+      openSnack("No more bingos possible please reset...", "warning");
       return;
     }
     setGameStarted(true);
@@ -105,8 +106,9 @@ export default function Dashboard() {
           let index = j * 5 + k;
           let question = players[i].playerQuestions[index];
           if (index == 12 || isSelected(question, drawnQuestions)) {
+            let columnWin = false;
+            let daignoalWin = false;
             if (j == 0) {
-              let columnWin = false;
               for (let z = 1; z < 5; z++) {
                 let checkIndex = z * 5 + k;
                 let question = players[i].playerQuestions[checkIndex];
@@ -117,16 +119,9 @@ export default function Dashboard() {
                   break;
                 }
               }
-              if (columnWin) {
-                winners = winners.concat(
-                  getWinObj("column", players[i].playerName)
-                );
-                break;
-              }
             }
+            let cnt = 1;
             if ((j == 0 && k == 0) || (j == 0 && k == 4)) {
-              let daignoalWin = false;
-              let cnt = 1;
               if (k == 4) cnt = k - 1;
               for (let z = 1; z < 5; z++) {
                 let checkIndex = z * 5 + cnt;
@@ -140,19 +135,28 @@ export default function Dashboard() {
                   break;
                 }
               }
+            }
+
+            if (columnWin || daignoalWin) {
+              if (columnWin) {
+                winners = winners.concat(getWinObj("column", players[i], k));
+              }
               if (daignoalWin) {
                 winners = winners.concat(
-                  getWinObj("daigonal", players[i].playerName)
+                  getWinObj("daigonal", players[i], cnt <= 0 ? 1 : 2)
                 );
-                break;
               }
             }
           } else previousColumn = false;
         }
         if (k == 5 && previousColumn) {
-          winners = winners.concat(getWinObj("row", players[i].playerName));
+          winners = winners.concat(getWinObj("row", players[i], j));
         }
       }
+      players[i].winnings = players[i].winnings.concat(
+        winners.filter((x) => x.winnerName == players[i].playerName)
+      );
+      setPlayers(players);
     }
     if (winners.length > 0) {
       setWinners(winners);
@@ -160,10 +164,18 @@ export default function Dashboard() {
     }
   };
 
-  const getWinObj = (type, name) => {
+  const getWinObj = (type, player, index) => {
+    if (player.winnings.length > 0) {
+      let winned = player.winnings.find(
+        (x) => x.winType == type && x.index == index
+      );
+      if (winned) return [];
+    }
+
     return {
-      winnerName: name,
+      winnerName: player.playerName,
       winType: type,
+      index: index,
     };
   };
 
@@ -254,7 +266,10 @@ export default function Dashboard() {
         </Alert>
       </Snackbar>
       <div
-        onClick={() => setShowWinners(false)}
+        onClick={() => {
+          setShowWinners(false);
+          setWinners([]);
+        }}
         className="overlay-bingo"
         style={{
           display: getModalDisplay(),
